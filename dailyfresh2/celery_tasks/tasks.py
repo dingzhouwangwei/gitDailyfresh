@@ -3,6 +3,10 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
 
 from dailyfresh2 import settings
+import os
+import django
+os.environ.setdefault("DJANGO_SETTINGS_MODULE","dailyfresh2.settings")
+django.setup()
 
 
 app=Celery('celery_tasks.tasks',broker='redis://192.168.178.130/9')
@@ -17,7 +21,6 @@ def sent_register_active_mail(ss,email):
     send_mail(subject, message, settings.EMAIL_FROM,
               sentTo, html_message=message)
     return redirect(reverse('goods:index'))
-
 
 
 
